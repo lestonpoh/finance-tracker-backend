@@ -2,17 +2,15 @@ package com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OpenPositions {
 
-    @JacksonXmlProperty(localName = "OpenPosition")
-    @JacksonXmlElementWrapper(useWrapping = false)
+    @XmlElement(name = "OpenPosition")
     private List<OpenPosition> openPositionList;
 }

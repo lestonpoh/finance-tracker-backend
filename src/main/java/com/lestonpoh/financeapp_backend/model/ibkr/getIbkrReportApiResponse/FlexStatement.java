@@ -1,17 +1,17 @@
 package com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FlexStatement {
 
-    @JacksonXmlProperty(localName = "CashReport")
+    @XmlElement(name = "CashReport")
     private CashReport cashReport;
 
-    @JacksonXmlProperty(localName = "OpenPositions")
+    @XmlElement(name = "OpenPositions")
     private OpenPositions openPositions;
 }

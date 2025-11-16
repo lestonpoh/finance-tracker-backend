@@ -1,19 +1,15 @@
 package com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FlexStatements {
 
-    @JacksonXmlProperty(localName = "FlexStatement")
-    @JacksonXmlElementWrapper(useWrapping = false)
-    private List<FlexStatement> flexStatementList;
+    @XmlElement(name = "FlexStatement")
+    private FlexStatement flexStatement;
 
 }

@@ -1,17 +1,18 @@
 package com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CashReportCurrency {
 
-    @JacksonXmlProperty(isAttribute = true, localName = "slbNetCash")
-    private String netCash;
+    @XmlAttribute(name = "slbNetCash")
+    private String slbNetCash;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "currency")
+    @XmlAttribute(name = "currency")
     private String currency;
+
 }

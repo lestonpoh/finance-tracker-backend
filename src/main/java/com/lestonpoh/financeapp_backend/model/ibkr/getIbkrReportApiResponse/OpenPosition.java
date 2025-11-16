@@ -1,35 +1,39 @@
 package com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OpenPosition {
 
-    @JacksonXmlProperty(isAttribute = true, localName = "currency")
+    @XmlAttribute(name = "currency")
     private String currency;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "symbol")
+    @XmlAttribute(name = "symbol")
     private String symbol;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "description")
+    @XmlAttribute(name = "description")
     private String description;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "position")
+    @XmlAttribute(name = "position")
     private String position;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "positionValue")
+    @XmlAttribute(name = "positionValue")
     private String positionValue;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "costBasisPrice")
-    private String costPrice;
+    @XmlAttribute(name = "costBasisPrice")
+    private String costBasisPrice;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "markPrice")
-    private String averagePurchasePrice;
+    @XmlAttribute(name = "markPrice")
+    private String markPrice;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "fifoPnlUnrealized")
-    private String unrealisedGains;
+    @XmlAttribute(name = "fifoPnlUnrealized")
+    private String fifoPnlUnrealized;
+
+    @XmlAttribute(name = "fxRateToBase")
+    private String fxRateToBase;
+
 }

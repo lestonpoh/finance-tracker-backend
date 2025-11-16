@@ -2,16 +2,16 @@ package com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import lombok.Data;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CashReport {
 
-    @JacksonXmlProperty(localName = "CashReportCurrency")
-    @JacksonXmlElementWrapper(useWrapping = false)
+    @XmlElement(name = "CashReportCurrency")
     private List<CashReportCurrency> cashReportCurrencyList;
 
-    // Getters & Setters...
 }

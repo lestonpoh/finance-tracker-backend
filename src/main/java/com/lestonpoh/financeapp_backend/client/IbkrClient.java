@@ -1,18 +1,16 @@
 package com.lestonpoh.financeapp_backend.client;
 
-import java.io.IOException;
-import java.util.Map;
+import java.io.StringReader;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.lestonpoh.financeapp_backend.model.ibkr.generateIbkrApiResponse.FlexStatementResponseDTO;
 import com.lestonpoh.financeapp_backend.model.ibkr.getIbkrReportApiResponse.FlexQueryResponseDTO;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +29,6 @@ public class IbkrClient {
     private String flexQueryId;
 
     private final WebClient webClient;
-    private final XmlMapper xmlMapper;
 
     public String generateReport() {
         String url = String.format(
@@ -45,19 +42,20 @@ public class IbkrClient {
                 .bodyToMono(String.class)
                 .block();
         try {
-            FlexStatementResponseDTO response = xmlMapper.readValue(responseXml, FlexStatementResponseDTO.class);
-            System.out.println(response);
-
+            JAXBContext context = JAXBContext.newInstance(FlexStatementResponseDTO.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            FlexStatementResponseDTO response = (FlexStatementResponseDTO) unmarshaller
+                    .unmarshal(new StringReader(responseXml));
             return response.getReferenceCode();
         } catch (Exception e) {
-            throw new RuntimeException("Cannot parse response to json");
+            throw new RuntimeException("Cannot parse xml response");
         }
     }
 
-    public FlexQueryResponseDTO getReport(String referenceCode) throws IOException {
+    public FlexQueryResponseDTO getReport(String referenceCode) {
         String url = String.format(
                 "%s?v=3&t=%s&q=%s",
-                getReportBaseUrl, flexToken, "3749292210");
+                getReportBaseUrl, flexToken, referenceCode);
 
         String responseXml = webClient.get()
                 .uri(url)
@@ -66,14 +64,11 @@ public class IbkrClient {
                 .block();
 
         try {
-            FlexQueryResponseDTO response = xmlMapper.readValue(responseXml, FlexQueryResponseDTO.class);
-            ObjectMapper jsonMapper = new ObjectMapper();
-            System.out.println(response);
-            // System.out.println(jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
-
-            return response;
+            JAXBContext context = JAXBContext.newInstance(FlexQueryResponseDTO.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return (FlexQueryResponseDTO) unmarshaller.unmarshal(new StringReader(responseXml));
         } catch (Exception e) {
-            throw new RuntimeException("Cannot parse response to json");
+            throw new RuntimeException("Cannot parse xml response");
         }
     }
 
