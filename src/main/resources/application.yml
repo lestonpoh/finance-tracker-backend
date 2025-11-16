@@ -1,11 +1,18 @@
 spring:
-  profile:
+  profiles:
     active: local
+  data:
+    mongodb:
+      uri: ""
 
 ibkr:
   urls:
-    generateReport: "https://ndcdyn.interactivebrokers.com/AccountManagement/FlexWebService/SendRequest"
-    getReport: "https://ndcdyn.interactivebrokers.com/AccountManagement/FlexWebService/GetStatement"
+    generateReport: https://ndcdyn.interactivebrokers.com/AccountManagement/FlexWebService/SendRequest
+    getReport: https://ndcdyn.interactivebrokers.com/AccountManagement/FlexWebService/GetStatement
   secrets:
-    flexToken: ""
-    flexQueryId: ""
+    flexToken: flexToken
+    flexQueryId: flexQueryId
+
+jwt:
+  secret: secret
+  expiration: 3600000
