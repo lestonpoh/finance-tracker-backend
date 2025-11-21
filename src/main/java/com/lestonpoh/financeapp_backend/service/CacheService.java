@@ -1,4 +1,4 @@
-package com.lestonpoh.financeapp_backend.service.redis;
+package com.lestonpoh.financeapp_backend.service;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +32,7 @@ public class CacheService {
                     .set(cacheKey(userId, key), encrypted, CACHE_TTL, TimeUnit.MINUTES);
             log.info("saved info to redis");
         } catch (Exception e) {
-            log.warn("unable to set info to: " + cacheKey(userId, key) + e);
+            log.warn("unable to set info to: " + cacheKey(userId, key), e);
         }
 
     }
@@ -46,7 +46,7 @@ public class CacheService {
             String decryptedJson = cryptoUtil.decrypt(encrypted);
             return objectMapper.readValue(decryptedJson, typeRef);
         } catch (Exception e) {
-            log.warn("unable to get cached info from: " + cacheKey(userId, key) + e);
+            log.warn("unable to get cached info from: " + cacheKey(userId, key), e);
             return null;
         }
 
