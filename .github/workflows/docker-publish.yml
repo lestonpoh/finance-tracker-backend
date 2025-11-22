@@ -32,4 +32,5 @@ jobs:
 
       - name: Push backend image
         run: |
-          docker push lestonpoh/finance-app-backend:latest lestonpoh/finance-app-backend:${TAG}
+          docker push lestonpoh/finance-app-backend:latest \
+          docker push lestonpoh/finance-app-backend:${TAG}
