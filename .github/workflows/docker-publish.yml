@@ -32,4 +32,5 @@ jobs:
 
       - name: Compose Push
       - name: Push backend image
-        run: docker push lestonpoh/finance-app-backend:latest lestonpoh/finance-app-backend:${TAG}
+        run: |
+          docker push lestonpoh/finance-app-backend:latest lestonpoh/finance-app-backend:${TAG}
