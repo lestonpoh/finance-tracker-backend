@@ -6,7 +6,10 @@ services:
     container_name: finance_app_redis
 
   backend:
-    image: finance-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lestonpoh/finance-app-backend:latest
     container_name: finance_app_backend
     ports:
       - "8081:8080" # springboot runs on port 8080 inside the container by default, setting server port to 8081 to still allow local testing
