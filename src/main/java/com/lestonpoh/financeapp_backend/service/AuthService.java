@@ -10,7 +10,9 @@ import com.lestonpoh.financeapp_backend.repository.UserRepository;
 import com.lestonpoh.financeapp_backend.utility.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -41,9 +43,10 @@ public class AuthService {
 
     public String login(LoginRequestDTO request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
-
+                .orElseThrow(() -> new RuntimeException("Invalid email"));
+        log.info(user.getPassword());
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+
             throw new RuntimeException("Invalid email or password");
         }
         return jwtUtil.generateToken(user.getId());

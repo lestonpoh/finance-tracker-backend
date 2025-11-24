@@ -37,3 +37,5 @@ application-local.yml
 .env
 
 .DS_Store
+
+deployment.yml
