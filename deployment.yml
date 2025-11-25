@@ -1,0 +1,82 @@
+# redis deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment-financeapp
+  namespace: finance-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-financeapp
+  template:
+    metadata:
+      labels:
+        app: redis-financeapp
+    spec:
+      containers:
+        - name: redis-financeapp
+          image: redis:7.0
+          ports:
+            - containerPort: 6379
+
+---
+# redis service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service-financeapp
+  namespace: finance-app
+spec:
+  type: ClusterIP # internal only
+  selector:
+    app: redis-financeapp
+  ports:
+    - port: 6379
+      targetPort: 6379
+
+---
+# backend deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment-financeapp
+  namespace: finance-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-financeapp
+  template:
+    metadata:
+      labels:
+        app: backend-financeapp
+    spec:
+      containers:
+        - name: backend-financeapp
+          image: lestonpoh/finance-app-backend:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: secret-financeapp
+          env:
+            - name: REDIS_HOST
+              value: redis-service-financeapp
+            - name: REDIS_PORT
+              value: "6379"
+
+---
+# backend service
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-financeapp
+  namespace: finance-app
+spec:
+  type: ClusterIP
+  selector:
+    app: backend-financeapp
+  ports:
+    - port: 8080
+      targetPort: 8080

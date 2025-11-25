@@ -38,4 +38,4 @@ application-local.yml
 
 .DS_Store
 
-deployment.yml
+secret.yml
