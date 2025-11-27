@@ -1,10 +1,10 @@
-package com.lestonpoh.financeapp_backend;
+package com.example.financeapp_backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FinanceappBackendApplicationTests {
+class AppTests {
 
 	@Test
 	void contextLoads() {
