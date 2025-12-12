@@ -57,7 +57,7 @@ public class IbkrMapper {
 
             float percent = Float.parseFloat(p.getCostBasisPrice()) == 0 ? 0
                     : (Float.parseFloat(p.getMarkPrice())
-                            - Float.parseFloat(p.getCostBasisPrice()) / Float.parseFloat(p.getCostBasisPrice()) * 100);
+                            - Float.parseFloat(p.getCostBasisPrice())) / Float.parseFloat(p.getCostBasisPrice()) * 100;
             position.setUnrealizedGainsPercent(NumberUtil.roundToDp(percent, 2));
             positionList.add(position);
         }

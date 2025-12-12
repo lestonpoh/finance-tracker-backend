@@ -23,7 +23,7 @@ public class UserService {
                         "No user found with this telegram account"));
         return TelegramUserResponse.builder()
                 .email(user.getEmail())
-                .username(user.getEmail())
+                .username(user.getUsername())
                 .telegramId(user.getTelegramId())
                 .token(jwtUtil.generateToken(user.getId()))
                 .build();
